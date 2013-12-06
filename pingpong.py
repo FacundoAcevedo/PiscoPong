@@ -75,15 +75,14 @@ class Pala(pygame.sprite.Sprite):
     def __init__(self, x):
 
         pygame.sprite.Sprite.__init__(self)
-        self.alto= 50
+        self.alto= 70
         self.ancho = 15
         self.superficie = pygame.Surface((self.alto, self.ancho))
         self.rect = pygame.Rect(x,HEIGHT/2 ,self.ancho, self.alto)
         self.color=(255, 255, 255)
         self.superficie.fill(self.color)
-
-
         self.speed = 0.5
+
     def mover(self, time, keys):
         if self.rect.top >=0:
             if keys[K_UP]:
@@ -189,7 +188,7 @@ def main():
     #Creo una bola
     bola = Bola()
     #Creo la pala
-    pala_jug = Pala(30)
+    pala_jug = Pala(10)
     pala_cpu = Pala(WIDTH - 30)
 
     #Creo obstaculos
