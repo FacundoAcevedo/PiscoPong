@@ -11,7 +11,7 @@
 """
 
 # Módulos
-import sys,random
+import sys, random
 
 import pygame
 from pygame.locals import *
@@ -19,7 +19,9 @@ from pygame.locals import *
 # Constantes
 WIDTH = 1024
 HEIGHT = 768
-random.seed(99)
+
+#Inicializo el random con la hora
+random.seed()
 
 # Clases
 # ---------------------------------------------------------------------
@@ -29,8 +31,10 @@ class Bola(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.radio = 7
         self.superficie = pygame.Surface((self.radio*2, self.radio*2))
-        self.rect = pygame.Rect(0,0,self.radio*2, self.radio*2)
-        self.superficie.fill((177,167,255))
+        self.color=(177,167,255)
+        self.rect = pygame.draw.circle(self.superficie,self.color, (self.radio, self.radio),  self.radio,0)
+        #self.rect = pygame.Rect(0,0,self.radio*2, self.radio*2)
+        #self.superficie.fill((177,167,255))
 
         self.speed = [0.5, -0.5]
 
@@ -41,17 +45,9 @@ class Bola(pygame.sprite.Sprite):
 
         if self.rect.left <= 0:
             puntos[1] += 1
-            R= random.randint(160,255)
-            G= random.randint(160,255)
-            B= random.randint(160,255)
-            self.superficie.fill((R,G,B))
 
         if self.rect.right >= WIDTH:
             puntos[0] += 1
-            R= random.randint(100,255)
-            G= random.randint(100,255)
-            B= random.randint(100,255)
-            self.superficie.fill((R,G,B))
 
         if self.rect.left <= 0 or self.rect.right >= WIDTH:
             self.speed[0] = -self.speed[0]
@@ -87,11 +83,6 @@ class Pala(pygame.sprite.Sprite):
         self.superficie.fill(self.color)
 
 
-        #pygame.sprite.Sprite.__init__(self)
-        #self.imagen = load_image("imagenes/pala.png")
-        #self.rect = self.imagen.get_rect()
-        #self.rect.centerx = x
-        #self.rect.centery = HEIGHT / 2
         self.speed = 0.5
     def mover(self, time, keys):
         if self.rect.top >=0:
@@ -226,7 +217,7 @@ def main():
                 sys.exit(0)
 
         #Framerate
-        tiempo = clock.tick(70)
+        tiempo = clock.tick(60)
         keys = pygame.key.get_pressed()
 
         obstaculos.actualizar()
